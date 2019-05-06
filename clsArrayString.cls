@@ -59,6 +59,10 @@ End Property
 Public Function AddRecord(iLp As Integer, sDane As String) As Boolean
     Dim bCancel As Boolean
     
+    If iLp = 0 Then
+        iLp = UBoundmArray(m_ArrayString) + 1
+    End If
+    
     If iLp > UBoundmArray(m_ArrayString) Then
         ReDim Preserve m_ArrayString(iLp)
     End If
