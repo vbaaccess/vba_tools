@@ -59,10 +59,6 @@ End Property
 Public Function AddRecord(iLp As Integer, sDane As String) As Boolean
     Dim bCancel As Boolean
     
-    If iLp = 0 Then
-        iLp = UBoundmArray(m_ArrayString) + 1
-    End If
-    
     If iLp > UBoundmArray(m_ArrayString) Then
         ReDim Preserve m_ArrayString(iLp)
     End If
@@ -72,6 +68,25 @@ Public Function AddRecord(iLp As Integer, sDane As String) As Boolean
     If Not (bCancel) Then
         m_ArrayString(iLp) = sDane
         AddRecord = True
+    End If
+    
+    RaiseEvent PoDodaniemRekordu
+End Function
+
+Public Function PutRecord(sDane As String) As Long
+    Dim newLp As Long
+    Dim bCancel As Boolean
+    
+    newLp = UBoundmArray(m_ArrayString) + 1
+    sDane = newLp & m_Divider & sDane
+    
+    ReDim Preserve m_ArrayString(newLp)
+        
+    RaiseEvent PrzedDodaniemRekordu(bCancel)
+    
+    If Not (bCancel) Then
+        m_ArrayString(newLp) = sDane
+        PutRecord = newLp
     End If
     
     RaiseEvent PoDodaniemRekordu
