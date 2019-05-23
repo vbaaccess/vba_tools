@@ -5,7 +5,7 @@ Private Const CurrentModuleName = "clsArrayString"
 
 Private Const DEFAULT_DIVIDER = ";"
 Private Const DEFAULT_CriteriaDivider = ":="
-Private Const DEFAULT_HEADS = "Lp;Description"
+Private Const DEFAULT_HEADS = "Lp;OpisCiaguZnakow"
 
 Private Enum search
     Head = 0
@@ -25,7 +25,7 @@ Public Event PrzedDodaniemRekordu(bCancel As Boolean)
 Public Event PoDodaniemRekordu()
 
 Private Sub Class_Initialize()
-    Debug.Print "Konstruktor klasy " & CurrentModuleName & " (" & VBA.Now & ")"
+    Debug.Print "Konstruktor klasy " & CurrentModuleName & " " & CurrentModuleName & " (" & VBA.Now & ")"
     
     m_Divider = DEFAULT_DIVIDER
     m_ArrHeads = DEFAULT_HEADS
@@ -317,15 +317,6 @@ Private Function ArrayFromCriteria_WerHeadExist(ByRef arrCriteria() As String, O
     End If
     
     ArrayFromCriteria_WerHeadExist = Not (bError)
-End Function
-
-Private Function ArrayFromCriteria_WerValueExist(ByRef objArrayCriteria() As String, Optional ErrorMsg As String) As Boolean
-    Dim bError As Boolean
-    
-    bError = True
-    VBA.MsgBox "UNDER CONSTRUCTION", vbInformation + vbOKOnly, "under construction"
-    
-    ArrayFromCriteria_WerValueExist = Not (bError)
 End Function
 
 Public Property Get ArrHeads() As String
