@@ -36,7 +36,7 @@ End Sub
 
 Private Sub INITmArrayString()
     If UBoundmArray(m_ArrayString) = 0 Then
-        ReDim m_ArrayString(1) As String
+        ReDim m_ArrayString(0) As String
     End If
     
     m_ArrayString(0) = m_ArrHeads
@@ -328,8 +328,8 @@ Private Function ArrayFromCriteria_WerValueExist(ByRef objArrayCriteria() As Str
     ArrayFromCriteria_WerValueExist = Not (bError)
 End Function
 
-Public Property Get ArrRewsCount() As Long
-    ArrRewsCount = UBoundmArray(m_ArrayString)
+Public Property Get ArrRowsCount() As Long
+    ArrRowsCount = UBoundmArray(m_ArrayString)
 End Property
 
 Public Property Get ArrHeads() As String
@@ -379,10 +379,11 @@ Public Function PutRecord(sDane As String) As Long
     Dim newLp As Long
     Dim bCancel As Boolean
     
-    newLp = UBoundmArray(m_ArrayString)
+    newLp = UBoundmArray(m_ArrayString) + 1
     sDane = newLp & m_Divider & sDane
     
-    ReDim Preserve m_ArrayString(newLp + 1)
+    ReDim Preserve m_ArrayString(newLp)
+    'ReDim Preserve m_ArrayString(newLp)
         
     RaiseEvent PrzedDodaniemRekordu(bCancel)
     
@@ -402,4 +403,3 @@ End Function
 Private Sub Class_Terminate()
     Debug.Print "Destruktor klasy " & CurrentModuleName & " (" & VBA.Now & ")"
 End Sub
-
