@@ -6,6 +6,16 @@
 ' Licence       : Free
 '
 '---------------------------------------------------------------------------------------
+' Call          :
+'---------------------------------------------------------------------------------------
+'             z procedura 'nazwaProcedury()'-->Metoda()
+'
+'---------------------------------------------------------------------------------------
+' Components    :
+'---------------------------------------------------------------------------------------
+' clsLstSql             - pierwsza wersja klasy
+'                         np.: Call LstColumnDesc(123, "SQLSQLSQL", "HEADHED")
+'---------------------------------------------------------------------------------------
 ' Changes       :
 '---------------------------------------------------------------------------------------
 ' 2019-05-28        , paweld : Utworzenie klasy.
@@ -116,7 +126,15 @@ Public Sub MakingPropertiesOfColumns(Optional bNoVerification As Boolean = True)
         '--- set column width, includ status IsHiden ---
         werValue = "0"
         If CBool(ArrFields(ENUM_COLUMN.IsHiden)) = False Then
-            werValue = ArrFields(ENUM_COLUMN.Width_cm) & "cm"
+            werValue = ArrFields(ENUM_COLUMN.Width_cm)
+            If IsNumeric(werValue) Then
+                If CDbl(werValue) >= 999 Then               ' wstaweienie szerokosci auto-resize
+                    werValue = ""
+                End If
+            End If
+            If Len(werValue) > 0 Then
+                werValue = ArrFields(ENUM_COLUMN.Width_cm) & "cm"
+            End If
         End If
         sColumnWidths = sColumnWidths & ";" & werValue
         
@@ -126,7 +144,7 @@ Public Sub MakingPropertiesOfColumns(Optional bNoVerification As Boolean = True)
             sCSS = sCSS & "," & werValue
             werValue = "": werValue = ArrFields(ENUM_COLUMN.ColumnHeader)
             If Len(werValue) > 0 Then
-                If CBool(ArrFields(ENUM_COLUMN.Translate)) Then werValue = SUR.tr(werValue)
+                If CBool(ArrFields(ENUM_COLUMN.Translate)) Then werValue = Sur.tr(werValue)
                 sCSS = sCSS & " AS [" & werValue & "]"
             End If
         End If
